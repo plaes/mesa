@@ -680,7 +680,7 @@ minify(unsigned value, unsigned levels)
 static inline uintptr_t
 ALIGN(uintptr_t value, int32_t alignment)
 {
-   assert((alignment > 0) && _mesa_is_pow_two(alignment));
+   assert((alignment > 0) && util_is_power_of_two_nonzero(alignment));
    return (((value) + (alignment) - 1) & ~((alignment) - 1));
 }
 
@@ -708,7 +708,7 @@ ALIGN_NPOT(uintptr_t value, int32_t alignment)
 static inline uintptr_t
 ROUND_DOWN_TO(uintptr_t value, int32_t alignment)
 {
-   assert((alignment > 0) && _mesa_is_pow_two(alignment));
+   assert((alignment > 0) && util_is_power_of_two_nonzero(alignment));
    return ((value) & ~(alignment - 1));
 }
 
