@@ -415,10 +415,11 @@ uint32_t
 _mesa_format_to_array_format(mesa_format format)
 {
    const struct gl_format_info *info = _mesa_get_format_info(format);
-   if (info->ArrayFormat && !_mesa_little_endian() &&
-       info->Layout == MESA_FORMAT_LAYOUT_PACKED)
+#ifdef PIPE_ARCH_BIG_ENDIAN
+   if (info->ArrayFormat && info->Layout == MESA_FORMAT_LAYOUT_PACKED)
       return _mesa_array_format_flip_channels(info->ArrayFormat);
    else
+#endif
       return info->ArrayFormat;
 }
 
@@ -451,11 +452,11 @@ format_array_format_table_init(void)
       if (!info->ArrayFormat)
          continue;
 
-      if (_mesa_little_endian()) {
+#ifdef PIPE_ARCH_LITTLE_ENDIAN
          array_format = info->ArrayFormat;
-      } else {
+#else
          array_format = _mesa_array_format_flip_channels(info->ArrayFormat);
-      }
+#endif
 
       /* This can happen and does for some of the BGR formats.  Let's take
        * the first one in the list.
@@ -1443,7 +1444,6 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
 				     GLenum format, GLenum type,
 				     GLboolean swapBytes, GLenum *error)
 {
-   const GLboolean littleEndian = _mesa_little_endian();
    if (error)
       *error = GL_NO_ERROR;
 
@@ -1472,7 +1472,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       if (format == GL_RGBA && type == GL_UNSIGNED_INT_8_8_8_8_REV && swapBytes)
          return GL_TRUE;
 
-      if (format == GL_RGBA && type == GL_UNSIGNED_BYTE && !littleEndian)
+      if (format == GL_RGBA && type == GL_UNSIGNED_BYTE && !PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       if (format == GL_ABGR_EXT && type == GL_UNSIGNED_INT_8_8_8_8_REV
@@ -1483,7 +1483,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
           && swapBytes)
          return GL_TRUE;
 
-      if (format == GL_ABGR_EXT && type == GL_UNSIGNED_BYTE && littleEndian)
+      if (format == GL_ABGR_EXT && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       return GL_FALSE;
@@ -1497,7 +1497,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       if (format == GL_RGBA && type == GL_UNSIGNED_INT_8_8_8_8 && swapBytes)
          return GL_TRUE;
 
-      if (format == GL_RGBA && type == GL_UNSIGNED_BYTE && littleEndian)
+      if (format == GL_RGBA && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       if (format == GL_ABGR_EXT && type == GL_UNSIGNED_INT_8_8_8_8 &&
@@ -1508,7 +1508,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
           swapBytes)
          return GL_TRUE;
 
-      if (format == GL_ABGR_EXT && type == GL_UNSIGNED_BYTE && !littleEndian)
+      if (format == GL_ABGR_EXT && type == GL_UNSIGNED_BYTE && !PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       return GL_FALSE;
@@ -1522,7 +1522,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       if (format == GL_BGRA && type == GL_UNSIGNED_INT_8_8_8_8 && swapBytes)
          return GL_TRUE;
 
-      if (format == GL_BGRA && type == GL_UNSIGNED_BYTE && littleEndian)
+      if (format == GL_BGRA && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       return GL_FALSE;
@@ -1536,7 +1536,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
           swapBytes)
          return GL_TRUE;
 
-      if (format == GL_BGRA && type == GL_UNSIGNED_BYTE && !littleEndian)
+      if (format == GL_BGRA && type == GL_UNSIGNED_BYTE && !PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       return GL_FALSE;
@@ -1551,10 +1551,10 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
 
    case MESA_FORMAT_BGR_UNORM8:
    case MESA_FORMAT_BGR_SRGB8:
-      return format == GL_BGR && type == GL_UNSIGNED_BYTE && littleEndian;
+      return format == GL_BGR && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN;
 
    case MESA_FORMAT_RGB_UNORM8:
-      return format == GL_RGB && type == GL_UNSIGNED_BYTE && littleEndian;
+      return format == GL_RGB && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN;
 
    case MESA_FORMAT_B5G6R5_UNORM:
       return ((format == GL_RGB && type == GL_UNSIGNED_SHORT_5_6_5) ||
@@ -1593,13 +1593,13 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       return GL_FALSE;
    case MESA_FORMAT_L8A8_UNORM:
    case MESA_FORMAT_L8A8_SRGB:
-      return format == GL_LUMINANCE_ALPHA && type == GL_UNSIGNED_BYTE && littleEndian;
+      return format == GL_LUMINANCE_ALPHA && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN;
    case MESA_FORMAT_A8L8_UNORM:
    case MESA_FORMAT_A8L8_SRGB:
       return GL_FALSE;
 
    case MESA_FORMAT_L16A16_UNORM:
-      return format == GL_LUMINANCE_ALPHA && type == GL_UNSIGNED_SHORT && littleEndian && !swapBytes;
+      return format == GL_LUMINANCE_ALPHA && type == GL_UNSIGNED_SHORT && PIPE_ARCH_LITTLE_ENDIAN && !swapBytes;
    case MESA_FORMAT_A16L16_UNORM:
       return GL_FALSE;
 
@@ -1664,18 +1664,18 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
 
    case MESA_FORMAT_YCBCR:
       return format == GL_YCBCR_MESA &&
-             ((type == GL_UNSIGNED_SHORT_8_8_MESA && littleEndian != swapBytes) ||
-              (type == GL_UNSIGNED_SHORT_8_8_REV_MESA && littleEndian == swapBytes));
+             ((type == GL_UNSIGNED_SHORT_8_8_MESA && PIPE_ARCH_LITTLE_ENDIAN != swapBytes) ||
+              (type == GL_UNSIGNED_SHORT_8_8_REV_MESA && PIPE_ARCH_LITTLE_ENDIAN == swapBytes));
    case MESA_FORMAT_YCBCR_REV:
       return format == GL_YCBCR_MESA &&
-             ((type == GL_UNSIGNED_SHORT_8_8_MESA && littleEndian == swapBytes) ||
-              (type == GL_UNSIGNED_SHORT_8_8_REV_MESA && littleEndian != swapBytes));
+             ((type == GL_UNSIGNED_SHORT_8_8_MESA && PIPE_ARCH_LITTLE_ENDIAN == swapBytes) ||
+              (type == GL_UNSIGNED_SHORT_8_8_REV_MESA && PIPE_ARCH_LITTLE_ENDIAN != swapBytes));
 
    case MESA_FORMAT_R_UNORM8:
    case MESA_FORMAT_R_SRGB8:
       return format == GL_RED && type == GL_UNSIGNED_BYTE;
    case MESA_FORMAT_R8G8_UNORM:
-      return format == GL_RG && type == GL_UNSIGNED_BYTE && littleEndian;
+      return format == GL_RG && type == GL_UNSIGNED_BYTE && PIPE_ARCH_LITTLE_ENDIAN;
    case MESA_FORMAT_G8R8_UNORM:
       return GL_FALSE;
 
@@ -1683,7 +1683,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       return format == GL_RED && type == GL_UNSIGNED_SHORT &&
          !swapBytes;
    case MESA_FORMAT_R16G16_UNORM:
-      return format == GL_RG && type == GL_UNSIGNED_SHORT && littleEndian &&
+      return format == GL_RG && type == GL_UNSIGNED_SHORT && PIPE_ARCH_LITTLE_ENDIAN &&
          !swapBytes;
    case MESA_FORMAT_G16R16_UNORM:
       return GL_FALSE;
@@ -1873,25 +1873,25 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
    case MESA_FORMAT_R_SNORM8:
       return format == GL_RED && type == GL_BYTE;
    case MESA_FORMAT_R8G8_SNORM:
-      return format == GL_RG && type == GL_BYTE && littleEndian &&
+      return format == GL_RG && type == GL_BYTE && PIPE_ARCH_LITTLE_ENDIAN &&
              !swapBytes;
    case MESA_FORMAT_X8B8G8R8_SNORM:
       return GL_FALSE;
 
    case MESA_FORMAT_A8B8G8R8_SNORM:
-      if (format == GL_RGBA && type == GL_BYTE && !littleEndian)
+      if (format == GL_RGBA && type == GL_BYTE && !PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
-      if (format == GL_ABGR_EXT && type == GL_BYTE && littleEndian)
+      if (format == GL_ABGR_EXT && type == GL_BYTE && PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       return GL_FALSE;
 
    case MESA_FORMAT_R8G8B8A8_SNORM:
-      if (format == GL_RGBA && type == GL_BYTE && littleEndian)
+      if (format == GL_RGBA && type == GL_BYTE && PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
-      if (format == GL_ABGR_EXT && type == GL_BYTE && !littleEndian)
+      if (format == GL_ABGR_EXT && type == GL_BYTE && !PIPE_ARCH_LITTLE_ENDIAN)
          return GL_TRUE;
 
       return GL_FALSE;
@@ -1900,7 +1900,7 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       return format == GL_RED && type == GL_SHORT &&
              !swapBytes;
    case MESA_FORMAT_R16G16_SNORM:
-      return format == GL_RG && type == GL_SHORT && littleEndian && !swapBytes;
+      return format == GL_RG && type == GL_SHORT && PIPE_ARCH_LITTLE_ENDIAN && !swapBytes;
    case MESA_FORMAT_RGB_SNORM16:
       return format == GL_RGB && type == GL_SHORT && !swapBytes;
    case MESA_FORMAT_RGBA_SNORM16:
@@ -1915,10 +1915,10 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       return format == GL_LUMINANCE && type == GL_BYTE;
    case MESA_FORMAT_L8A8_SNORM:
       return format == GL_LUMINANCE_ALPHA && type == GL_BYTE &&
-             littleEndian && !swapBytes;
+             PIPE_ARCH_LITTLE_ENDIAN && !swapBytes;
    case MESA_FORMAT_A8L8_SNORM:
       return format == GL_LUMINANCE_ALPHA && type == GL_BYTE &&
-             !littleEndian && !swapBytes;
+             !PIPE_ARCH_LITTLE_ENDIAN && !swapBytes;
    case MESA_FORMAT_I_SNORM8:
       return format == GL_RED && type == GL_BYTE;
    case MESA_FORMAT_A_SNORM16:
@@ -1927,9 +1927,9 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
       return format == GL_LUMINANCE && type == GL_SHORT && !swapBytes;
    case MESA_FORMAT_LA_SNORM16:
       return format == GL_LUMINANCE_ALPHA && type == GL_SHORT &&
-             littleEndian && !swapBytes;
+             PIPE_ARCH_LITTLE_ENDIAN && !swapBytes;
    case MESA_FORMAT_I_SNORM16:
-      return format == GL_RED && type == GL_SHORT && littleEndian &&
+      return format == GL_RED && type == GL_SHORT && PIPE_ARCH_LITTLE_ENDIAN &&
              !swapBytes;
 
    case MESA_FORMAT_B10G10R10A2_UINT:
@@ -2073,11 +2073,11 @@ _mesa_format_matches_format_and_type(mesa_format mesa_format,
          !swapBytes;
 
    case MESA_FORMAT_G8R8_SNORM:
-      return format == GL_RG && type == GL_BYTE && !littleEndian &&
+      return format == GL_RG && type == GL_BYTE && !PIPE_ARCH_LITTLE_ENDIAN &&
          !swapBytes;
 
    case MESA_FORMAT_G16R16_SNORM:
-      return format == GL_RG && type == GL_SHORT && !littleEndian &&
+      return format == GL_RG && type == GL_SHORT && !PIPE_ARCH_LITTLE_ENDIAN &&
          !swapBytes;
 
    case MESA_FORMAT_B8G8R8X8_SRGB:

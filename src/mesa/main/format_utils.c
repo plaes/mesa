@@ -647,9 +647,9 @@ _mesa_format_convert(void *void_dst, uint32_t dst_format, size_t dst_stride,
    }
 }
 
-static const uint8_t map_identity[7] = { 0, 1, 2, 3, 4, 5, 6 };
-static const uint8_t map_3210[7] = { 3, 2, 1, 0, 4, 5, 6 };
-static const uint8_t map_1032[7] = { 1, 0, 3, 2, 4, 5, 6 };
+MAYBE_UNUSED static const uint8_t map_identity[7] = { 0, 1, 2, 3, 4, 5, 6 };
+MAYBE_UNUSED static const uint8_t map_3210[7] = { 3, 2, 1, 0, 4, 5, 6 };
+MAYBE_UNUSED static const uint8_t map_1032[7] = { 1, 0, 3, 2, 4, 5, 6 };
 
 /**
  * Describes a format as an array format, if possible
@@ -700,10 +700,18 @@ _mesa_format_to_array(mesa_format format, GLenum *type, int *num_components,
             endian = map_identity;
             break;
          case 2:
-            endian = _mesa_little_endian() ? map_identity : map_1032;
+#ifdef PIPE_ARCH_LITTLE_ENDIAN
+            endian = map_identity;
+#else
+            endian = map_1032;
+#endif
             break;
          case 4:
-            endian = _mesa_little_endian() ? map_identity : map_3210;
+#ifdef PIPE_ARCH_LITTLE_ENDIAN
+            endian = map_identity;
+#else
+            endian = map_3210;
+#endif
             break;
          default:
             endian = map_identity;
@@ -721,7 +729,11 @@ _mesa_format_to_array(mesa_format format, GLenum *type, int *num_components,
             endian = map_identity;
             break;
          case 2:
-            endian = _mesa_little_endian() ? map_identity : map_1032;
+#ifdef PIPE_ARCH_LITTLE_ENDIAN
+            endian = map_identity;
+#else
+            endian = map_1032;
+#endif
             break;
          default:
             endian = map_identity;
