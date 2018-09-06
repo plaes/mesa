@@ -603,7 +603,7 @@ mesa_format _radeon_texformat_al88 = MESA_FORMAT_NONE;
 static void
 radeonInitTextureFormats(void)
 {
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#if PIPE_ARCH_LITTLE_ENDIAN
    _radeon_texformat_rgba8888	= MESA_FORMAT_A8B8G8R8_UNORM;
    _radeon_texformat_argb8888	= MESA_FORMAT_B8G8R8A8_UNORM;
    _radeon_texformat_rgb565		= MESA_FORMAT_B5G6R5_UNORM;

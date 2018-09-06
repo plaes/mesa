@@ -373,7 +373,7 @@ init_gallivm_state(struct gallivm_state *gallivm, const char *name,
          const unsigned pointer_size = 8 * sizeof(void *);
          char layout[512];
          util_snprintf(layout, sizeof layout, "%c-p:%u:%u:%u-i64:64:64-a0:0:%u-s0:%u:%u",
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#if PIPE_ARCH_LITTLE_ENDIAN
                        'e', // little endian
 #else
                        'E', // big endian
