@@ -33,11 +33,12 @@
 
 #include "main/glheader.h"
 #include "main/context.h"
-#include "main/imports.h"
 #include "prog_instruction.h"
 #include "prog_parameter.h"
 #include "prog_print.h"
 #include "prog_statevars.h"
+#include "util/u_string.h"
+#include "util/bitscan.h"  // For ffs definition
 
 
 
@@ -83,7 +84,7 @@ _mesa_register_file_name(gl_register_file f)
    default:
       {
          static char s[20];
-         _mesa_snprintf(s, sizeof(s), "FILE%u", f);
+         util_snprintf(s, sizeof(s), "FILE%u", f);
          return s;
       }
    }
@@ -986,7 +987,7 @@ _mesa_write_shader_to_file(const struct gl_shader *shader)
       break;
    }
 
-   _mesa_snprintf(filename, sizeof(filename), "shader_%u.%s", shader->Name, type);
+   util_snprintf(filename, sizeof(filename), "shader_%u.%s", shader->Name, type);
    f = fopen(filename, "w");
    if (!f) {
       fprintf(stderr, "Unable to open %s for writing\n", filename);
@@ -1029,7 +1030,7 @@ _mesa_append_uniforms_to_file(const struct gl_program *prog)
    else
       type = "vert";
 
-   _mesa_snprintf(filename, sizeof(filename), "shader.%s", type);
+   util_snprintf(filename, sizeof(filename), "shader.%s", type);
    f = fopen(filename, "a"); /* append */
    if (!f) {
       fprintf(stderr, "Unable to open %s for appending\n", filename);

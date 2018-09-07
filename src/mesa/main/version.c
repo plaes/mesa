@@ -25,10 +25,10 @@
 
 #include <stdio.h>
 #include "context.h"
-#include "imports.h"
 #include "mtypes.h"
 #include "version.h"
 #include "git_sha1.h"
+#include "util/u_string.h"
 
 /**
  * Scans 'string' to see if it ends with 'ending'.
@@ -120,14 +120,14 @@ create_version_string(struct gl_context *ctx, const char *prefix)
 
    ctx->VersionString = malloc(max);
    if (ctx->VersionString) {
-      _mesa_snprintf(ctx->VersionString, max,
-		     "%s%u.%u%s Mesa " PACKAGE_VERSION MESA_GIT_SHA1,
-		     prefix,
-		     ctx->Version / 10, ctx->Version % 10,
-		     (ctx->API == API_OPENGL_CORE) ? " (Core Profile)" :
-                     (ctx->API == API_OPENGL_COMPAT && ctx->Version >= 32) ?
-                        " (Compatibility Profile)" : ""
-		     );
+      util_snprintf(ctx->VersionString, max,
+		    "%s%u.%u%s Mesa " PACKAGE_VERSION MESA_GIT_SHA1,
+		    prefix,
+		    ctx->Version / 10, ctx->Version % 10,
+		    (ctx->API == API_OPENGL_CORE) ? " (Core Profile)" :
+                    (ctx->API == API_OPENGL_COMPAT && ctx->Version >= 32) ?
+                       " (Compatibility Profile)" : ""
+		    );
    }
 }
 

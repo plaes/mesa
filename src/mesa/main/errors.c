@@ -32,7 +32,6 @@
 #include <stdio.h>
 #include "errors.h"
 #include "enums.h"
-#include "imports.h"
 #include "context.h"
 #include "debug_output.h"
 #include "util/u_string.h"
@@ -87,7 +86,7 @@ output_if_debug(const char *prefixString, const char *outputString,
        * visible, so communicate with the debugger instead */ 
       {
          char buf[4096];
-         _mesa_snprintf(buf, sizeof(buf), "%s: %s%s", prefixString, outputString, newline ? "\n" : "");
+         util_snprintf(buf, sizeof(buf), "%s: %s%s", prefixString, outputString, newline ? "\n" : "");
          OutputDebugStringA(buf);
       }
 #endif
@@ -117,7 +116,7 @@ flush_delayed_errors( struct gl_context *ctx )
    char s[MAX_DEBUG_MESSAGE_LENGTH];
 
    if (ctx->ErrorDebugCount) {
-      _mesa_snprintf(s, MAX_DEBUG_MESSAGE_LENGTH, "%d similar %s errors",
+      util_snprintf(s, MAX_DEBUG_MESSAGE_LENGTH, "%d similar %s errors",
                      ctx->ErrorDebugCount,
                      _mesa_enum_to_string(ctx->ErrorValue));
 
@@ -337,7 +336,7 @@ _mesa_error( struct gl_context *ctx, GLenum error, const char *fmtString, ... )
          return;
       }
 
-      len = _mesa_snprintf(s2, MAX_DEBUG_MESSAGE_LENGTH, "%s in %s",
+      len = util_snprintf(s2, MAX_DEBUG_MESSAGE_LENGTH, "%s in %s",
                            _mesa_enum_to_string(error), s);
       if (len >= MAX_DEBUG_MESSAGE_LENGTH) {
          /* Same as above. */

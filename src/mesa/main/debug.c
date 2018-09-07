@@ -30,13 +30,13 @@
 #include "enums.h"
 #include "formats.h"
 #include "hash.h"
-#include "imports.h"
 #include "macros.h"
 #include "debug.h"
 #include "get.h"
 #include "pixelstore.h"
 #include "readpix.h"
 #include "texobj.h"
+#include "util/u_string.h"
 
 
 static const char *
@@ -284,7 +284,7 @@ write_texture_image(struct gl_texture_object *texObj,
                                  GL_RGBA, GL_UNSIGNED_BYTE, buffer, img);
 
       /* make filename */
-      _mesa_snprintf(s, sizeof(s), "/tmp/tex%u.l%u.f%u.ppm", texObj->Name, level, face);
+      util_snprintf(s, sizeof(s), "/tmp/tex%u.l%u.f%u.ppm", texObj->Name, level, face);
 
       printf("  Writing image level %u to %s\n", level, s);
       write_ppm(s, buffer, img->Width, img->Height, 4, 0, 1, 2, GL_FALSE);
@@ -330,8 +330,8 @@ _mesa_write_renderbuffer_image(const struct gl_renderbuffer *rb)
                           format, type, &ctx->DefaultPacking, buffer);
 
    /* make filename */
-   _mesa_snprintf(s, sizeof(s), "/tmp/renderbuffer%u.ppm", rb->Name);
-   _mesa_snprintf(s, sizeof(s), "C:\\renderbuffer%u.ppm", rb->Name);
+   util_snprintf(s, sizeof(s), "/tmp/renderbuffer%u.ppm", rb->Name);
+   util_snprintf(s, sizeof(s), "C:\\renderbuffer%u.ppm", rb->Name);
 
    printf("  Writing renderbuffer image to %s\n", s);
 

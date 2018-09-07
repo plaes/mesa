@@ -52,8 +52,8 @@ class PrintGlEnums(gl_XML.gl_print_base):
     def printRealHeader(self):
         print('#include "main/glheader.h"')
         print('#include "main/enums.h"')
-        print('#include "main/imports.h"')
         print('#include "main/mtypes.h"')
+        print('#include "util/u_string.h"')
         print('')
         print('typedef struct PACKED {')
         print('   uint32_t offset;')
@@ -103,7 +103,7 @@ _mesa_enum_to_string(int nr)
    }
    else {
       /* this is not re-entrant safe, no big deal here */
-      _mesa_snprintf(token_tmp, sizeof(token_tmp) - 1, "0x%x", nr);
+      util_snprintf(token_tmp, sizeof(token_tmp) - 1, "0x%x", nr);
       token_tmp[sizeof(token_tmp) - 1] = '\\0';
       return token_tmp;
    }

@@ -33,7 +33,6 @@
 
 #include "main/glheader.h"
 #include "main/mtypes.h"
-#include "main/imports.h"
 #include "main/arbprogram.h"
 #include "main/arrayobj.h"
 #include "main/blend.h"
@@ -90,6 +89,7 @@
 #include "util/ralloc.h"
 #include "compiler/nir/nir.h"
 #include "util/u_math.h"
+#include "util/u_string.h"
 
 /** Return offset in bytes of the field within a vertex struct */
 #define OFFSET(FIELD) ((void *) offsetof(struct vertex, FIELD))
@@ -2047,7 +2047,7 @@ init_draw_stencil_pixels(struct gl_context *ctx)
       texTarget = "RECT";
    else
       texTarget = "2D";
-   _mesa_snprintf(program2, sizeof(program2), program, texTarget);
+   util_snprintf(program2, sizeof(program2), program, texTarget);
 
    _mesa_GenProgramsARB(1, &drawpix->StencilFP);
    _mesa_BindProgramARB(GL_FRAGMENT_PROGRAM_ARB, drawpix->StencilFP);
@@ -2081,7 +2081,7 @@ init_draw_depth_pixels(struct gl_context *ctx)
       texTarget = "RECT";
    else
       texTarget = "2D";
-   _mesa_snprintf(program2, sizeof(program2), program, texTarget);
+   util_snprintf(program2, sizeof(program2), program, texTarget);
 
    _mesa_GenProgramsARB(1, &drawpix->DepthFP);
    _mesa_BindProgramARB(GL_FRAGMENT_PROGRAM_ARB, drawpix->DepthFP);
