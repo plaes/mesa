@@ -35,6 +35,7 @@
 #include "imports.h"
 #include "context.h"
 #include "debug_output.h"
+#include "util/u_string.h"
 
 
 static FILE *LogFile = NULL;
@@ -140,7 +141,7 @@ _mesa_warning( struct gl_context *ctx, const char *fmtString, ... )
    char str[MAX_DEBUG_MESSAGE_LENGTH];
    va_list args;
    va_start( args, fmtString );
-   (void) _mesa_vsnprintf( str, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args );
+   (void) util_vsnprintf( str, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args );
    va_end( args );
 
    if (ctx)
@@ -170,7 +171,7 @@ _mesa_problem( const struct gl_context *ctx, const char *fmtString, ... )
       numCalls++;
 
       va_start( args, fmtString );
-      _mesa_vsnprintf( str, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args );
+      util_vsnprintf( str, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args );
       va_end( args );
       fprintf(stderr, "Mesa " PACKAGE_VERSION " implementation error: %s\n",
               str);
@@ -230,7 +231,7 @@ _mesa_gl_vdebugf(struct gl_context *ctx,
 
    _mesa_debug_get_id(id);
 
-   len = _mesa_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
+   len = util_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
    if (len >= MAX_DEBUG_MESSAGE_LENGTH)
       /* message was truncated */
       len = MAX_DEBUG_MESSAGE_LENGTH - 1;
@@ -325,7 +326,7 @@ _mesa_error( struct gl_context *ctx, GLenum error, const char *fmtString, ... )
       va_list args;
 
       va_start(args, fmtString);
-      len = _mesa_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
+      len = util_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
       va_end(args);
 
       if (len >= MAX_DEBUG_MESSAGE_LENGTH) {
@@ -382,7 +383,7 @@ _mesa_debug( const struct gl_context *ctx, const char *fmtString, ... )
    char s[MAX_DEBUG_MESSAGE_LENGTH];
    va_list args;
    va_start(args, fmtString);
-   _mesa_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
+   util_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
    va_end(args);
    output_if_debug("Mesa", s, GL_FALSE);
 #endif /* DEBUG */
@@ -397,7 +398,7 @@ _mesa_log(const char *fmtString, ...)
    char s[MAX_DEBUG_MESSAGE_LENGTH];
    va_list args;
    va_start(args, fmtString);
-   _mesa_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
+   util_vsnprintf(s, MAX_DEBUG_MESSAGE_LENGTH, fmtString, args);
    va_end(args);
    output_if_debug("", s, GL_FALSE);
 }

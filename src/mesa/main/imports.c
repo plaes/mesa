@@ -212,14 +212,6 @@ _mesa_align_realloc(void *oldBuffer, size_t oldSize, size_t newSize,
 
 /*@}*/
 
-
-/** Needed due to #ifdef's, above. */
-int
-_mesa_vsnprintf(char *str, size_t size, const char *fmt, va_list args)
-{
-   return vsnprintf( str, size, fmt, args);
-}
-
 /** Wrapper around vsnprintf() */
 int
 _mesa_snprintf( char *str, size_t size, const char *fmt, ... )

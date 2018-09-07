@@ -166,9 +166,6 @@ _mesa_align_realloc(void *oldBuffer, size_t oldSize, size_t newSize,
 extern int
 _mesa_snprintf( char *str, size_t size, const char *fmt, ... ) PRINTFLIKE(3, 4);
 
-extern int
-_mesa_vsnprintf(char *str, size_t size, const char *fmt, va_list arg);
-
 
 #if defined(_WIN32) && !defined(strtok_r)
 #define strtok_r strtok_s
