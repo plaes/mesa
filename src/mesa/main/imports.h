@@ -81,10 +81,6 @@ extern "C" {
 typedef union { GLfloat f; GLint i; GLuint u; } fi_type;
 
 
-
-#if defined(_MSC_VER)
-#define strcasecmp(s1, s2) _stricmp(s1, s2)
-#endif
 /*@}*/
 
 

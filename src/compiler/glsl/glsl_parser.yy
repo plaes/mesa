@@ -33,6 +33,7 @@
 #include "glsl_parser_extras.h"
 #include "compiler/glsl_types.h"
 #include "main/context.h"
+#include "util/u_string.h"
 
 #ifdef _MSC_VER
 #pragma warning( disable : 4065 ) // switch statement contains 'default' but no 'case' labels
@@ -74,7 +75,7 @@ static bool match_layout_qualifier(const char *s1, const char *s2,
    if (state->es_shader)
       return strcmp(s1, s2);
    else
-      return strcasecmp(s1, s2);
+      return util_strcasecmp(s1, s2);
 }
 %}
 
