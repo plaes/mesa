@@ -151,7 +151,7 @@ gamma_adjust( GLfloat gamma, GLint value, GLint max )
    }
    else {
       double x = (double) value / (double) max;
-      return IROUND_POS((GLfloat) max * pow(x, 1.0F/gamma));
+      return _mesa_lroundevenf((GLfloat) max * pow(x, 1.0F/gamma));
    }
 }
 
