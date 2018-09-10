@@ -206,6 +206,10 @@ util_strstr(const char *haystack, const char *needle)
 #define util_strcasecmp stricmp
 #define util_strdup _strdup
 
+#if !defined(strtok_r)
+#define strtok_r strtok_s
+#endif
+
 #else
 
 #define util_vsnprintf vsnprintf

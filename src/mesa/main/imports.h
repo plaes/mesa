@@ -125,10 +125,6 @@ _mesa_align_realloc(void *oldBuffer, size_t oldSize, size_t newSize,
                     unsigned long alignment);
 
 
-#if defined(_WIN32) && !defined(strtok_r)
-#define strtok_r strtok_s
-#endif
-
 #ifdef __cplusplus
 }
 #endif
