@@ -38,7 +38,6 @@
 
 
 #include "glheader.h"
-#include "imports.h"
 #include "context.h"
 #include "eval.h"
 #include "macros.h"
@@ -704,7 +703,7 @@ _mesa_GetnMapivARB( GLenum target, GLenum query, GLsizei bufSize, GLint *v )
             if (bufSize < numBytes)
                goto overflow;
 	    for (i=0;i<n;i++) {
-	       v[i] = IROUND(data[i]);
+	       v[i] = _mesa_iroundf(data[i]);
 	    }
 	 }
          break;
@@ -728,17 +727,17 @@ _mesa_GetnMapivARB( GLenum target, GLenum query, GLsizei bufSize, GLint *v )
             numBytes = 2 * sizeof *v;
             if (bufSize < numBytes)
                goto overflow;
-            v[0] = IROUND(map1d->u1);
-            v[1] = IROUND(map1d->u2);
+            v[0] = _mesa_iroundf(map1d->u1);
+            v[1] = _mesa_iroundf(map1d->u2);
          }
          else {
             numBytes = 4 * sizeof *v;
             if (bufSize < numBytes)
                goto overflow;
-            v[0] = IROUND(map2d->u1);
-            v[1] = IROUND(map2d->u2);
-            v[2] = IROUND(map2d->v1);
-            v[3] = IROUND(map2d->v2);
+            v[0] = _mesa_iroundf(map2d->u1);
+            v[1] = _mesa_iroundf(map2d->u2);
+            v[2] = _mesa_iroundf(map2d->v1);
+            v[3] = _mesa_iroundf(map2d->v2);
          }
          break;
       default:

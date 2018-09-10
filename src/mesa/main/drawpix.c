@@ -23,7 +23,6 @@
  */
 
 #include "glheader.h"
-#include "imports.h"
 #include "draw_validate.h"
 #include "bufferobj.h"
 #include "context.h"
@@ -37,6 +36,7 @@
 #include "glformats.h"
 #include "fbobject.h"
 #include "util/u_math.h"
+#include "util/rounding.h"
 
 
 /*
@@ -58,8 +58,8 @@ _mesa_DrawPixels( GLsizei width, GLsizei height,
                   _mesa_enum_to_string(type),
                   pixels,
                   _mesa_enum_to_string(ctx->DrawBuffer->ColorDrawBuffer[0]),
-                  IROUND(ctx->Current.RasterPos[0]),
-                  IROUND(ctx->Current.RasterPos[1]));
+                  _mesa_iroundf(ctx->Current.RasterPos[0]),
+                  _mesa_iroundf(ctx->Current.RasterPos[1]));
 
 
    if (width < 0 || height < 0) {
@@ -141,8 +141,8 @@ _mesa_DrawPixels( GLsizei width, GLsizei height,
    if (ctx->RenderMode == GL_RENDER) {
       if (width > 0 && height > 0) {
          /* Round, to satisfy conformance tests (matches SGI's OpenGL) */
-         GLint x = IROUND(ctx->Current.RasterPos[0]);
-         GLint y = IROUND(ctx->Current.RasterPos[1]);
+         GLint x = _mesa_iroundf(ctx->Current.RasterPos[0]);
+         GLint y = _mesa_iroundf(ctx->Current.RasterPos[1]);
 
          if (_mesa_is_bufferobj(ctx->Unpack.BufferObj)) {
             /* unpack from PBO */
@@ -202,8 +202,8 @@ _mesa_CopyPixels( GLint srcx, GLint srcy, GLsizei width, GLsizei height,
                   _mesa_enum_to_string(type),
                   _mesa_enum_to_string(ctx->ReadBuffer->ColorReadBuffer),
                   _mesa_enum_to_string(ctx->DrawBuffer->ColorDrawBuffer[0]),
-                  IROUND(ctx->Current.RasterPos[0]),
-                  IROUND(ctx->Current.RasterPos[1]));
+                  _mesa_iroundf(ctx->Current.RasterPos[0]),
+                  _mesa_iroundf(ctx->Current.RasterPos[1]));
 
    if (width < 0 || height < 0) {
       _mesa_error(ctx, GL_INVALID_VALUE, "glCopyPixels(width or height < 0)");
@@ -265,8 +265,8 @@ _mesa_CopyPixels( GLint srcx, GLint srcy, GLsizei width, GLsizei height,
    if (ctx->RenderMode == GL_RENDER) {
       /* Round to satisfy conformance tests (matches SGI's OpenGL) */
       if (width > 0 && height > 0) {
-         GLint destx = IROUND(ctx->Current.RasterPos[0]);
-         GLint desty = IROUND(ctx->Current.RasterPos[1]);
+         GLint destx = _mesa_iroundf(ctx->Current.RasterPos[0]);
+         GLint desty = _mesa_iroundf(ctx->Current.RasterPos[1]);
          ctx->Driver.CopyPixels( ctx, srcx, srcy, width, height, destx, desty,
                                  type );
       }

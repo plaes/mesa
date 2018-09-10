@@ -2203,7 +2203,7 @@ get_tex_parameteriv(struct gl_context *ctx,
          /* GL spec 'Data Conversions' section specifies that floating-point
           * value in integer Get function is rounded to nearest integer
           */
-         *params = IROUND(obj->Sampler.MinLod);
+         *params = _mesa_iroundf(obj->Sampler.MinLod);
          break;
       case GL_TEXTURE_MAX_LOD:
          if (!_mesa_is_desktop_gl(ctx) && !_mesa_is_gles3(ctx))
@@ -2211,7 +2211,7 @@ get_tex_parameteriv(struct gl_context *ctx,
          /* GL spec 'Data Conversions' section specifies that floating-point
           * value in integer Get function is rounded to nearest integer
           */
-         *params = IROUND(obj->Sampler.MaxLod);
+         *params = _mesa_iroundf(obj->Sampler.MaxLod);
          break;
       case GL_TEXTURE_BASE_LEVEL:
          if (!_mesa_is_desktop_gl(ctx) && !_mesa_is_gles3(ctx))
@@ -2228,7 +2228,7 @@ get_tex_parameteriv(struct gl_context *ctx,
          /* GL spec 'Data Conversions' section specifies that floating-point
           * value in integer Get function is rounded to nearest integer
           */
-         *params = IROUND(obj->Sampler.MaxAnisotropy);
+         *params = _mesa_iroundf(obj->Sampler.MaxAnisotropy);
          break;
       case GL_GENERATE_MIPMAP_SGIS:
          if (ctx->API != API_OPENGL_COMPAT && ctx->API != API_OPENGLES)
@@ -2266,7 +2266,7 @@ get_tex_parameteriv(struct gl_context *ctx,
          /* GL spec 'Data Conversions' section specifies that floating-point
           * value in integer Get function is rounded to nearest integer
           */
-         *params = IROUND(obj->Sampler.LodBias);
+         *params = _mesa_iroundf(obj->Sampler.LodBias);
          break;
       case GL_TEXTURE_CROP_RECT_OES:
          if (ctx->API != API_OPENGLES || !ctx->Extensions.OES_draw_texture)

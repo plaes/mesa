@@ -298,7 +298,7 @@ blit_nearest(struct gl_context *ctx,
 
       for (dstRow = 0; dstRow < dstHeight; dstRow++) {
          GLfloat srcRowF = (dstRow + 0.5F) / dstHeight * srcHeight - 0.5F;
-         GLint srcRow = IROUND(srcRowF);
+         GLint srcRow = _mesa_iroundf(srcRowF);
          GLubyte *dstRowStart = dstMap + dstRowStride * dstRow;
 
          assert(srcRow >= 0);

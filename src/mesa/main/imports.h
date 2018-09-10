@@ -107,23 +107,6 @@ typedef union { GLfloat f; GLint i; GLuint u; } fi_type;
 #endif
 
 
-/**
- * Convert float to int by rounding to nearest integer, away from zero.
- */
-static inline int IROUND(float f)
-{
-   return (int) ((f >= 0.0F) ? (f + 0.5F) : (f - 0.5F));
-}
-
-/**
- * Convert float to int64 by rounding to nearest integer.
- */
-static inline GLint64 IROUND64(float f)
-{
-   return (GLint64) ((f >= 0.0F) ? (f + 0.5F) : (f - 0.5F));
-}
-
-
 /**********************************************************************
  * Functions
  */

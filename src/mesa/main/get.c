@@ -1893,18 +1893,18 @@ _mesa_GetIntegerv(GLenum pname, GLint *params)
       break;
 
    case TYPE_FLOAT_8:
-      params[7] = IROUND(((GLfloat *) p)[7]);
-      params[6] = IROUND(((GLfloat *) p)[6]);
-      params[5] = IROUND(((GLfloat *) p)[5]);
-      params[4] = IROUND(((GLfloat *) p)[4]);
+      params[7] = _mesa_iroundf(((GLfloat *) p)[7]);
+      params[6] = _mesa_iroundf(((GLfloat *) p)[6]);
+      params[5] = _mesa_iroundf(((GLfloat *) p)[5]);
+      params[4] = _mesa_iroundf(((GLfloat *) p)[4]);
    case TYPE_FLOAT_4:
-      params[3] = IROUND(((GLfloat *) p)[3]);
+      params[3] = _mesa_iroundf(((GLfloat *) p)[3]);
    case TYPE_FLOAT_3:
-      params[2] = IROUND(((GLfloat *) p)[2]);
+      params[2] = _mesa_iroundf(((GLfloat *) p)[2]);
    case TYPE_FLOAT_2:
-      params[1] = IROUND(((GLfloat *) p)[1]);
+      params[1] = _mesa_iroundf(((GLfloat *) p)[1]);
    case TYPE_FLOAT:
-      params[0] = IROUND(((GLfloat *) p)[0]);
+      params[0] = _mesa_iroundf(((GLfloat *) p)[0]);
       break;
 
    case TYPE_FLOATN_4:
@@ -2008,18 +2008,18 @@ _mesa_GetInteger64v(GLenum pname, GLint64 *params)
       break;
 
    case TYPE_FLOAT_8:
-      params[7] = IROUND64(((GLfloat *) p)[7]);
-      params[6] = IROUND64(((GLfloat *) p)[6]);
-      params[5] = IROUND64(((GLfloat *) p)[5]);
-      params[4] = IROUND64(((GLfloat *) p)[4]);
+      params[7] = lround(((GLfloat *) p)[7]);
+      params[6] = lround(((GLfloat *) p)[6]);
+      params[5] = lround(((GLfloat *) p)[5]);
+      params[4] = lround(((GLfloat *) p)[4]);
    case TYPE_FLOAT_4:
-      params[3] = IROUND64(((GLfloat *) p)[3]);
+      params[3] = lround(((GLfloat *) p)[3]);
    case TYPE_FLOAT_3:
-      params[2] = IROUND64(((GLfloat *) p)[2]);
+      params[2] = lround(((GLfloat *) p)[2]);
    case TYPE_FLOAT_2:
-      params[1] = IROUND64(((GLfloat *) p)[1]);
+      params[1] = lround(((GLfloat *) p)[1]);
    case TYPE_FLOAT:
-      params[0] = IROUND64(((GLfloat *) p)[0]);
+      params[0] = lround(((GLfloat *) p)[0]);
       break;
 
    case TYPE_FLOATN_4:
@@ -2785,22 +2785,22 @@ _mesa_GetIntegeri_v( GLenum pname, GLuint index, GLint *params )
    switch (type) {
    case TYPE_FLOAT_4:
    case TYPE_FLOATN_4:
-      params[3] = IROUND(v.value_float_4[3]);
+      params[3] = _mesa_iroundf(v.value_float_4[3]);
    case TYPE_FLOAT_3:
    case TYPE_FLOATN_3:
-      params[2] = IROUND(v.value_float_4[2]);
+      params[2] = _mesa_iroundf(v.value_float_4[2]);
    case TYPE_FLOAT_2:
    case TYPE_FLOATN_2:
-      params[1] = IROUND(v.value_float_4[1]);
+      params[1] = _mesa_iroundf(v.value_float_4[1]);
    case TYPE_FLOAT:
    case TYPE_FLOATN:
-      params[0] = IROUND(v.value_float_4[0]);
+      params[0] = _mesa_iroundf(v.value_float_4[0]);
       break;
 
    case TYPE_DOUBLEN_2:
-      params[1] = IROUND(v.value_double_2[1]);
+      params[1] = _mesa_iroundf(v.value_double_2[1]);
    case TYPE_DOUBLEN:
-      params[0] = IROUND(v.value_double_2[0]);
+      params[0] = _mesa_iroundf(v.value_double_2[0]);
       break;
 
    case TYPE_INT:

@@ -1421,19 +1421,19 @@ _mesa_GetSamplerParameteriv(GLuint sampler, GLenum pname, GLint *params)
       /* GL spec 'Data Conversions' section specifies that floating-point
        * value in integer Get function is rounded to nearest integer
        */
-      *params = IROUND(sampObj->MinLod);
+      *params = _mesa_iroundf(sampObj->MinLod);
       break;
    case GL_TEXTURE_MAX_LOD:
       /* GL spec 'Data Conversions' section specifies that floating-point
        * value in integer Get function is rounded to nearest integer
        */
-      *params = IROUND(sampObj->MaxLod);
+      *params = _mesa_iroundf(sampObj->MaxLod);
       break;
    case GL_TEXTURE_LOD_BIAS:
       /* GL spec 'Data Conversions' section specifies that floating-point
        * value in integer Get function is rounded to nearest integer
        */
-      *params = IROUND(sampObj->LodBias);
+      *params = _mesa_iroundf(sampObj->LodBias);
       break;
    case GL_TEXTURE_COMPARE_MODE:
       *params = sampObj->CompareMode;
@@ -1445,7 +1445,7 @@ _mesa_GetSamplerParameteriv(GLuint sampler, GLenum pname, GLint *params)
       /* GL spec 'Data Conversions' section specifies that floating-point
        * value in integer Get function is rounded to nearest integer
        */
-      *params = IROUND(sampObj->MaxAnisotropy);
+      *params = _mesa_iroundf(sampObj->MaxAnisotropy);
       break;
    case GL_TEXTURE_BORDER_COLOR:
       params[0] = FLOAT_TO_INT(sampObj->BorderColor.f[0]);

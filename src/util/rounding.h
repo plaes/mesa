@@ -110,6 +110,16 @@ _mesa_lroundevenf(float x)
 }
 
 /**
+ * \brief Rounds \c x to away from zero and returns the value as an int.
+ */
+static inline int
+_mesa_iroundf(float x)
+{
+   return (int) roundf(x);
+}
+
+
+/**
  * \brief Rounds \c x to the nearest integer, with ties to the even integer,
  * and returns the value as a long int.
  */
