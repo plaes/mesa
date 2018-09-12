@@ -71,6 +71,7 @@
 #include "vbo/vbo.h"
 
 #include "util/u_string.h"
+#include "util/u_memory.h"
 
 
 #define USE_BITMAP_ATLAS 1

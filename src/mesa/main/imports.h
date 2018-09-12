@@ -47,19 +47,6 @@
 extern "C" {
 #endif
 
-
-/**********************************************************************/
-/** Memory macros */
-/*@{*/
-
-/** Allocate a structure of type \p T */
-#define MALLOC_STRUCT(T)   (struct T *) malloc(sizeof(struct T))
-/** Allocate and zero a structure of type \p T */
-#define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))
-
-/*@}*/
-
-
 /*
  * For GL_ARB_vertex_buffer_object we need to treat vertex array pointers
  * as offsets into buffer stores.  Since the vertex array pointer and

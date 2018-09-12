@@ -34,6 +34,7 @@
 #include "version.h"
 #include "util/hash_table.h"
 #include "util/simple_list.h"
+#include "util/u_memory.h"
 
 
 static simple_mtx_t DynamicIDMutex = _SIMPLE_MTX_INITIALIZER_NP;

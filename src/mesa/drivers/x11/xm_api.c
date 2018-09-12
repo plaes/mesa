@@ -85,6 +85,7 @@
 #include "drivers/common/driverfuncs.h"
 #include "drivers/common/meta.h"
 #include "util/u_math.h"
+#include "util/u_memory.h"
 
 /**
  * Global X driver lock

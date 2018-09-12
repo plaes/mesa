@@ -51,6 +51,8 @@
 #include "tgsi/tgsi_parse.h"
 #include "tgsi/tgsi_ureg.h"
 
+#include "util/u_memory.h"
+
 #include "st_debug.h"
 #include "st_cb_bitmap.h"
 #include "st_cb_drawpixels.h"

@@ -37,6 +37,7 @@
 #include <unistd.h>
 
 #include "util/u_atomic.h"
+#include "util/u_memory.h"
 
 static void radv_amdgpu_winsys_bo_destroy(struct radeon_winsys_bo *_bo);
 

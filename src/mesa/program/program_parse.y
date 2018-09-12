@@ -40,6 +40,7 @@
 #include "program/program_parser.h"
 
 #include "util/u_math.h"
+#include "util/u_memory.h"
 #include "util/u_string.h"
 
 extern void *yy_scan_string(char *);

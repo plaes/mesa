@@ -49,6 +49,7 @@
 #include "macros.h"
 #include "main/hash.h"
 #include "fast_urem_by_const.h"
+#include "util/u_memory.h"
 
 static const uint32_t deleted_key_value;
 
