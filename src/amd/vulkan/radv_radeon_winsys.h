@@ -40,8 +40,6 @@ struct radeon_info;
 struct ac_surf_info;
 struct radeon_surf;
 
-#define FREE(x) free(x)
-
 enum radeon_bo_domain { /* bitfield */
 	RADEON_DOMAIN_GTT  = 2,
 	RADEON_DOMAIN_VRAM = 4,

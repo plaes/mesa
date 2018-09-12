@@ -282,7 +282,7 @@ static void radv_amdgpu_winsys_bo_destroy(struct radeon_winsys_bo *_bo)
 			     -align64(bo->size, ws->info.gart_page_size));
 
 	amdgpu_va_range_free(bo->va_handle);
-	FREE(bo);
+	free(bo);
 }
 
 static void radv_amdgpu_add_buffer_to_global_list(struct radv_amdgpu_winsys_bo *bo)
@@ -418,7 +418,7 @@ error_bo_alloc:
 	amdgpu_va_range_free(va_handle);
 
 error_va_alloc:
-	FREE(bo);
+	free(bo);
 	return NULL;
 }
 
@@ -523,7 +523,7 @@ error_va_alloc:
 	amdgpu_bo_free(buf_handle);
 
 error:
-	FREE(bo);
+	free(bo);
 	return NULL;
 }
 
@@ -599,7 +599,7 @@ error_query:
 	amdgpu_bo_free(result.buf_handle);
 
 error:
-	FREE(bo);
+	free(bo);
 	return NULL;
 }
 

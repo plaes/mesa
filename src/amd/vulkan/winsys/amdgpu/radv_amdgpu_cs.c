@@ -1345,7 +1345,7 @@ static struct radeon_winsys_ctx *radv_amdgpu_ctx_create(struct radeon_winsys *_w
 		memset(ctx->fence_map, 0, 4096);
 	return (struct radeon_winsys_ctx *)ctx;
 error_create:
-	FREE(ctx);
+	free(ctx);
 	return NULL;
 }
 
@@ -1354,7 +1354,7 @@ static void radv_amdgpu_ctx_destroy(struct radeon_winsys_ctx *rwctx)
 	struct radv_amdgpu_ctx *ctx = (struct radv_amdgpu_ctx *)rwctx;
 	ctx->ws->base.buffer_destroy(ctx->fence_bo);
 	amdgpu_cs_ctx_free(ctx->ctx);
-	FREE(ctx);
+	free(ctx);
 }
 
 static bool radv_amdgpu_ctx_wait_idle(struct radeon_winsys_ctx *rwctx,
@@ -1387,7 +1387,7 @@ static struct radeon_winsys_sem *radv_amdgpu_create_sem(struct radeon_winsys *_w
 static void radv_amdgpu_destroy_sem(struct radeon_winsys_sem *_sem)
 {
 	struct amdgpu_cs_fence *sem = (struct amdgpu_cs_fence *)_sem;
-	FREE(sem);
+	free(sem);
 }
 
 static int radv_amdgpu_signal_sems(struct radv_amdgpu_ctx *ctx,

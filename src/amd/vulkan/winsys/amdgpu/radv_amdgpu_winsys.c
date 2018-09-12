@@ -158,7 +158,7 @@ static void radv_amdgpu_winsys_destroy(struct radeon_winsys *rws)
 
 	AddrDestroy(ws->addrlib);
 	amdgpu_device_deinitialize(ws->dev);
-	FREE(rws);
+	free(rws);
 }
 
 struct radeon_winsys *
