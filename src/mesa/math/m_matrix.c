@@ -37,12 +37,13 @@
 #include "c99_math.h"
 #include "main/errors.h"
 #include "main/glheader.h"
-#include "main/imports.h"
 #include "main/macros.h"
 #define MATH_ASM_PTR_SIZE sizeof(void *)
 #include "math/m_vector_asm.h"
 
 #include "m_matrix.h"
+
+#include "util/u_memory.h"
 
 
 /**
@@ -1475,10 +1476,10 @@ _math_matrix_loadf( GLmatrix *mat, const GLfloat *m )
 void
 _math_matrix_ctr( GLmatrix *m )
 {
-   m->m = _mesa_align_malloc( 16 * sizeof(GLfloat), 16 );
+   m->m = align_malloc( 16 * sizeof(GLfloat), 16 );
    if (m->m)
       memcpy( m->m, Identity, sizeof(Identity) );
-   m->inv = _mesa_align_malloc( 16 * sizeof(GLfloat), 16 );
+   m->inv = align_malloc( 16 * sizeof(GLfloat), 16 );
    if (m->inv)
       memcpy( m->inv, Identity, sizeof(Identity) );
    m->type = MATRIX_IDENTITY;
@@ -1495,10 +1496,10 @@ _math_matrix_ctr( GLmatrix *m )
 void
 _math_matrix_dtr( GLmatrix *m )
 {
-   _mesa_align_free( m->m );
+   align_free( m->m );
    m->m = NULL;
 
-   _mesa_align_free( m->inv );
+   align_free( m->inv );
    m->inv = NULL;
 }
 

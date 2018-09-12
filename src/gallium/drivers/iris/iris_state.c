@@ -92,6 +92,7 @@
 #include "util/u_inlines.h"
 #include "util/u_format.h"
 #include "util/u_framebuffer.h"
+#include "util/u_memory.h"
 #include "util/u_transfer.h"
 #include "util/u_upload_mgr.h"
 #include "util/u_viewport.h"

@@ -71,24 +71,6 @@ typedef union { GLfloat f; GLint i; GLuint u; } fi_type;
 /*@}*/
 
 
-/**********************************************************************
- * Functions
- */
-
-extern void *
-_mesa_align_malloc( size_t bytes, unsigned long alignment );
-
-extern void *
-_mesa_align_calloc( size_t bytes, unsigned long alignment );
-
-extern void
-_mesa_align_free( void *ptr );
-
-extern void *
-_mesa_align_realloc(void *oldBuffer, size_t oldSize, size_t newSize,
-                    unsigned long alignment);
-
-
 #ifdef __cplusplus
 }
 #endif

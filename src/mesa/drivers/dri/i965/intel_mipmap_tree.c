@@ -47,6 +47,7 @@
 #include "main/streaming-load-memcpy.h"
 
 #include "util/format_srgb.h"
+#include "util/u_memory.h"
 
 #include "x86/common_x86_asm.h"
 
@@ -2939,7 +2940,7 @@ intel_miptree_unmap_tiled_memcpy(struct brw_context *brw,
 
       intel_miptree_unmap_raw(mt);
    }
-   _mesa_align_free(map->buffer);
+   align_free(map->buffer);
    map->buffer = map->ptr = NULL;
 }
 
@@ -3021,7 +3022,7 @@ intel_miptree_map_tiled_memcpy(struct brw_context *brw,
     * aligned). Here we over-allocate the linear buffer by enough
     * bytes to get the proper alignment.
     */
-   map->buffer = _mesa_align_malloc(map->stride * (y2 - y1) + (x1 & 0xf), 16);
+   map->buffer = align_malloc(map->stride * (y2 - y1) + (x1 & 0xf), 16);
    map->ptr = (char *)map->buffer + (x1 & 0xf);
    assert(map->buffer);
 
@@ -3114,7 +3115,7 @@ intel_miptree_unmap_movntdqa(struct brw_context *brw,
                              unsigned int level,
                              unsigned int slice)
 {
-   _mesa_align_free(map->buffer);
+   align_free(map->buffer);
    map->buffer = NULL;
    map->ptr = NULL;
 }
@@ -3164,7 +3165,7 @@ intel_miptree_map_movntdqa(struct brw_context *brw,
 
    map->stride = ALIGN(misalignment + width_bytes, 16);
 
-   map->buffer = _mesa_align_malloc(map->stride * map->h, 16);
+   map->buffer = align_malloc(map->stride * map->h, 16);
    /* Offset the destination so it has the same misalignment as src. */
    map->ptr = map->buffer + misalignment;
 

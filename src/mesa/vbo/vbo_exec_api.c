@@ -43,6 +43,7 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "main/draw_validate.h"
 #include "main/dispatch.h"
 #include "util/bitscan.h"
+#include "util/u_memory.h"
 
 #include "vbo_noop.h"
 #include "vbo_private.h"
@@ -1140,7 +1141,7 @@ vbo_use_buffer_objects(struct gl_context *ctx)
    /* Make sure this func is only used once */
    assert(exec->vtx.bufferobj == ctx->Shared->NullBufferObj);
 
-   _mesa_align_free(exec->vtx.buffer_map);
+   align_free(exec->vtx.buffer_map);
    exec->vtx.buffer_map = NULL;
    exec->vtx.buffer_ptr = NULL;
 
@@ -1186,7 +1187,7 @@ vbo_exec_vtx_init(struct vbo_exec_context *exec)
                                  ctx->Shared->NullBufferObj);
 
    assert(!exec->vtx.buffer_map);
-   exec->vtx.buffer_map = _mesa_align_malloc(VBO_VERT_BUFFER_SIZE, 64);
+   exec->vtx.buffer_map = align_malloc(VBO_VERT_BUFFER_SIZE, 64);
    exec->vtx.buffer_ptr = exec->vtx.buffer_map;
 
    vbo_exec_vtxfmt_init(exec);
@@ -1220,7 +1221,7 @@ vbo_exec_vtx_destroy(struct vbo_exec_context *exec)
       assert(exec->vtx.bufferobj->Name == 0 ||
              exec->vtx.bufferobj->Name == IMM_BUFFER_NAME);
       if (exec->vtx.bufferobj->Name == 0) {
-         _mesa_align_free(exec->vtx.buffer_map);
+         align_free(exec->vtx.buffer_map);
          exec->vtx.buffer_map = NULL;
          exec->vtx.buffer_ptr = NULL;
       }

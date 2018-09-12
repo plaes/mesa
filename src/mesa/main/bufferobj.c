@@ -36,7 +36,6 @@
 #include "glheader.h"
 #include "enums.h"
 #include "hash.h"
-#include "imports.h"
 #include "context.h"
 #include "bufferobj.h"
 #include "externalobjects.h"
@@ -473,7 +472,7 @@ _mesa_delete_buffer_object(struct gl_context *ctx,
    (void) ctx;
 
    vbo_delete_minmax_cache(bufObj);
-   _mesa_align_free(bufObj->Data);
+   align_free(bufObj->Data);
 
    /* assign strange values here to help w/ debugging */
    bufObj->RefCount = -1000;
@@ -613,9 +612,9 @@ buffer_data_fallback(struct gl_context *ctx, GLenum target, GLsizeiptrARB size,
 
    (void) target;
 
-   _mesa_align_free( bufObj->Data );
+   align_free( bufObj->Data );
 
-   new_data = _mesa_align_malloc( size, ctx->Const.MinMapBufferAlignment );
+   new_data = align_malloc( size, ctx->Const.MinMapBufferAlignment );
    if (new_data) {
       bufObj->Data = (GLubyte *) new_data;
       bufObj->Size = size;
