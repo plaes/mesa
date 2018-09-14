@@ -34,7 +34,6 @@
 #include "colormac.h"
 #include "glformats.h"
 #include "image.h"
-#include "imports.h"
 #include "macros.h"
 #include "mtypes.h"
 

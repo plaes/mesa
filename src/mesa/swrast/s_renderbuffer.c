@@ -31,7 +31,6 @@
 
 
 #include "main/glheader.h"
-#include "main/imports.h"
 #include "main/context.h"
 #include "main/fbobject.h"
 #include "main/formats.h"

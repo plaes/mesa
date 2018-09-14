@@ -30,7 +30,6 @@
 #include "glheader.h"
 #include "context.h"
 #include "enums.h"
-#include "imports.h"
 #include "macros.h"
 #include "teximage.h"
 #include "texobj.h"

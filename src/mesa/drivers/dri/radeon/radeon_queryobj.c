@@ -28,8 +28,6 @@
 #include "radeon_queryobj.h"
 #include "radeon_debug.h"
 
-#include "main/imports.h"
-
 #include <inttypes.h>
 
 static void radeonQueryGetResult(struct gl_context *ctx, struct gl_query_object *q)

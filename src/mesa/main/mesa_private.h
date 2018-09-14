@@ -1,27 +1,7 @@
-/**
- * \file imports.c
- * Standard C library function wrappers.
- * 
- * Imports are services which the device driver or window system or
- * operating system provides to the core renderer.  The core renderer (Mesa)
- * will call these functions in order to do memory allocation, simple I/O,
- * etc.
- *
- * Some drivers will want to override/replace this file with something
- * specialized, but that'll be rare.
- *
- * Eventually, I want to move roll the glheader.h file into this.
- *
- * \todo Functions still needed:
- * - scanf
- * - qsort
- * - rand and RAND_MAX
- */
-
 /*
  * Mesa 3-D graphics library
  *
- * Copyright (C) 1999-2007  Brian Paul   All Rights Reserved.
+ * Copyright (C) 1999-2008  Brian Paul   All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -42,24 +22,35 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include "c99_math.h"
-#include "util/rounding.h" /* for _mesa_roundeven */
-#include "imports.h"
-#include "context.h"
-#include "version.h"
+/**
+ * \file mesa_private.h
+ * Contains mesa internal values
+ * 
+ */
 
-#ifdef _GNU_SOURCE
-#include <locale.h>
-#ifdef __APPLE__
-#include <xlocale.h>
-#endif
+#ifndef MESA_PRIVATE_H
+#define MESA_PRIVATE_H
+
+#include "glheader.h"
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 
-#ifdef _WIN32
-#define vsnprintf _vsnprintf
-#elif defined(__IBMC__) || defined(__IBMCPP__)
-extern int vsnprintf(char *str, size_t count, const char *fmt, va_list arg);
+/**
+ * Sometimes we treat GLfloats as GLints.  On x86 systems, moving a float
+ * as an int (thereby using integer registers instead of FP registers) is
+ * a performance win.  Typically, this can be done with ordinary casts.
+ * But with gcc's -fstrict-aliasing flag (which defaults to on in gcc 3.0)
+ * these casts generate warnings.
+ * The following union typedef is used to solve that.
+ */
+typedef union { GLfloat f; GLint i; GLuint u; } fi_type;
+
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* IMPORTS_H */

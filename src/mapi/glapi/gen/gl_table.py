@@ -101,6 +101,7 @@ class PrintRemapTable(gl_XML.gl_print_base):
  * named function in the specified dispatch table.
  */
 """)
+        print('#include "main/glheader.h"')
         return
 
 

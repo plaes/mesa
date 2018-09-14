@@ -32,7 +32,6 @@
 #include "glxheader.h"
 #include "xmesaP.h"
 #include "main/errors.h"
-#include "main/imports.h"
 #include "main/formats.h"
 #include "main/framebuffer.h"
 #include "main/renderbuffer.h"

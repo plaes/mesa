@@ -37,7 +37,6 @@
 #include "main/macros.h"
 #include "main/mipmap.h"
 #include "main/image.h"
-#include "main/imports.h"
 #include "main/mtypes.h"
 #include "main/pbo.h"
 #include "main/texformat.h"

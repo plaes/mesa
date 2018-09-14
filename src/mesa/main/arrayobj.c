@@ -43,7 +43,6 @@
 #include "glheader.h"
 #include "hash.h"
 #include "image.h"
-#include "imports.h"
 #include "context.h"
 #include "bufferobj.h"
 #include "arrayobj.h"

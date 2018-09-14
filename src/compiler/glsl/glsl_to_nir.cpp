@@ -36,7 +36,6 @@
 #include "compiler/nir/nir_builder.h"
 #include "compiler/nir/nir_deref.h"
 #include "main/errors.h"
-#include "main/imports.h"
 #include "main/mtypes.h"
 #include "main/shaderobj.h"
 #include "util/u_math.h"

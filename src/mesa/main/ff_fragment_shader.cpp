@@ -29,7 +29,6 @@
 
 #include "main/glheader.h"
 #include "main/context.h"
-#include "main/imports.h"
 #include "main/macros.h"
 #include "main/samplerobj.h"
 #include "main/shaderobj.h"

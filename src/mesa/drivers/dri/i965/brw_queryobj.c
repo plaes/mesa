@@ -35,8 +35,6 @@
  * appropriately synced with the stage of the pipeline for our extensions'
  * needs.
  */
-#include "main/imports.h"
-
 #include "brw_context.h"
 #include "brw_defines.h"
 #include "brw_state.h"

@@ -33,7 +33,6 @@
 #include "glheader.h"
 #include "macros.h"
 #include "pixeltransfer.h"
-#include "imports.h"
 #include "mtypes.h"
 #include "util/rounding.h"
 

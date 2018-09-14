@@ -30,8 +30,9 @@ inc_amd_common = include_directories('amd/common')
 libglsl_util = static_library(
   'glsl_util',
   files(
-    'mesa/main/extensions_table.c', 'mesa/main/imports.c',
-    'mesa/program/prog_parameter.c', 'mesa/program/symbol_table.c',
+    'mesa/main/extensions_table.c',
+    'mesa/program/prog_parameter.c',
+    'mesa/program/symbol_table.c',
     'mesa/program/dummy_errors.c',
   ),
   include_directories : [inc_common],

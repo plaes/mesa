@@ -31,7 +31,6 @@
 
 #include "main/glheader.h"
 #include "main/context.h"
-#include "main/imports.h"
 #include "main/macros.h"
 #include "main/mtypes.h"
 #include "main/state.h"

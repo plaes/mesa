@@ -35,7 +35,6 @@
 #include "fbobject.h"
 #include "formats.h"
 #include "hash.h"
-#include "imports.h"
 #include "macros.h"
 #include "shaderimage.h"
 #include "teximage.h"

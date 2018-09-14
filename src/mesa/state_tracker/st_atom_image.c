@@ -24,7 +24,6 @@
  *
  **************************************************************************/
 
-#include "main/imports.h"
 #include "main/shaderimage.h"
 #include "program/prog_parameter.h"
 #include "program/prog_print.h"

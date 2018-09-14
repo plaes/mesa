@@ -26,10 +26,12 @@
  **************************************************************************/
 
 #include <stdio.h>
+#include <assert.h>
+
+#include "main/glheader.h"
 
 #include "i915_reg.h"
 #include "i915_debug.h"
-#include "main/imports.h"
 
 static const char *opcodes[0x20] = {
    "NOP",

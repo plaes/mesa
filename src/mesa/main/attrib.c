@@ -24,7 +24,6 @@
  */
 
 #include "glheader.h"
-#include "imports.h"
 #include "accum.h"
 #include "arrayobj.h"
 #include "attrib.h"

@@ -31,7 +31,6 @@
 
 #include <stdio.h>
 #include "glheader.h"
-#include "imports.h"
 #include "blend.h"
 #include "buffers.h"
 #include "context.h"

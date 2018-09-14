@@ -34,7 +34,6 @@
 #include "main/format_utils.h"
 #include "main/glformats.h"
 #include "main/image.h"
-#include "main/imports.h"
 #include "main/macros.h"
 #include "main/mipmap.h"
 #include "main/pack.h"

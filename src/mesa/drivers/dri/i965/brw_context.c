@@ -37,7 +37,6 @@
 #include "main/fbobject.h"
 #include "main/extensions.h"
 #include "main/glthread.h"
-#include "main/imports.h"
 #include "main/macros.h"
 #include "main/points.h"
 #include "main/version.h"

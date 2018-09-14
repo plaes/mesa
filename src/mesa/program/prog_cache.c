@@ -28,7 +28,6 @@
 
 #include "main/glheader.h"
 #include "main/mtypes.h"
-#include "main/imports.h"
 #include "main/shaderobj.h"
 #include "program/prog_cache.h"
 #include "program/program.h"

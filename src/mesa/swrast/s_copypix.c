@@ -29,7 +29,6 @@
 #include "main/macros.h"
 #include "main/blit.h"
 #include "main/pixeltransfer.h"
-#include "main/imports.h"
 
 #include "s_context.h"
 #include "s_depth.h"

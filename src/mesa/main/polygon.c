@@ -29,7 +29,6 @@
 
 
 #include "glheader.h"
-#include "imports.h"
 #include "context.h"
 #include "image.h"
 #include "enums.h"

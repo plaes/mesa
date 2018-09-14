@@ -35,7 +35,6 @@
  *   Brian Paul
  */
 
-#include "main/imports.h"
 #include "main/mtypes.h"
 #include "main/framebuffer.h"
 #include "main/texobj.h"

@@ -33,7 +33,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "main/errors.h"
 #include "main/glheader.h"
-#include "main/imports.h"
 #include "main/enums.h"
 #include "main/api_arrayelt.h"
 #include "main/state.h"

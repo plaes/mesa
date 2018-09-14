@@ -33,7 +33,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 #include "main/glheader.h"
-#include "main/imports.h"
 #include "main/mtypes.h"
 #include "main/macros.h"
 

@@ -57,7 +57,6 @@
 
 #include <inttypes.h>
 #include "glheader.h"
-#include "imports.h"
 #include "context.h"
 #include "macros.h"
 #include "get.h"

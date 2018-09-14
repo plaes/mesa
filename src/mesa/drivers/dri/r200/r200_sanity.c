@@ -35,7 +35,6 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <errno.h> 
 
 #include "main/glheader.h"
-#include "main/imports.h"
 
 #include "r200_context.h"
 #include "r200_sanity.h"

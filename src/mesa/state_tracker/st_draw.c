@@ -37,7 +37,6 @@
 
 
 #include "main/errors.h"
-#include "main/imports.h"
 #include "main/image.h"
 #include "main/bufferobj.h"
 #include "main/macros.h"

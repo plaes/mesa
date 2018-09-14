@@ -9,7 +9,6 @@
 #include "context.h"
 #include "depth.h"
 #include "fog.h"
-#include "imports.h"
 #include "light.h"
 #include "lines.h"
 #include "matrix.h"

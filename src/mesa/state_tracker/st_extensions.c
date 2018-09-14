@@ -28,7 +28,6 @@
 
 #include "compiler/nir/nir.h"
 
-#include "main/imports.h"
 #include "main/context.h"
 #include "main/macros.h"
 #include "main/version.h"

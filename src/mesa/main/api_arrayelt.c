@@ -39,7 +39,6 @@
 #include "api_arrayelt.h"
 #include "bufferobj.h"
 #include "context.h"
-#include "imports.h"
 #include "macros.h"
 #include "mtypes.h"
 #include "main/dispatch.h"

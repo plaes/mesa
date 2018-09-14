@@ -32,8 +32,8 @@
 #define HASH_H
 
 
+#include <stdbool.h>
 #include "glheader.h"
-#include "imports.h"
 #include "c11/threads.h"
 
 /**
