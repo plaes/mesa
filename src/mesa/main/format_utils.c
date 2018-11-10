@@ -700,14 +700,14 @@ _mesa_format_to_array(mesa_format format, GLenum *type, int *num_components,
             endian = map_identity;
             break;
          case 2:
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#ifdef UTIL_ARCH_LITTLE_ENDIAN
             endian = map_identity;
 #else
             endian = map_1032;
 #endif
             break;
          case 4:
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#ifdef UTIL_ARCH_LITTLE_ENDIAN
             endian = map_identity;
 #else
             endian = map_3210;
@@ -729,7 +729,7 @@ _mesa_format_to_array(mesa_format format, GLenum *type, int *num_components,
             endian = map_identity;
             break;
          case 2:
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#ifdef UTIL_ARCH_LITTLE_ENDIAN
             endian = map_identity;
 #else
             endian = map_1032;

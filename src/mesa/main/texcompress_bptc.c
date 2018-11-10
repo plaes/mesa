@@ -142,7 +142,7 @@ _mesa_texstore_bptc_rgba_unorm(TEXSTORE_PARAMS)
       tempImageSlices[0] = (GLubyte *) tempImage;
       _mesa_texstore(ctx, dims,
                      baseInternalFormat,
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#ifdef UTIL_ARCH_LITTLE_ENDIAN
                      MESA_FORMAT_R8G8B8A8_UNORM,
 #else
                      MESA_FORMAT_A8B8G8R8_UNORM,

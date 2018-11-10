@@ -197,13 +197,13 @@ _mesa_texstore_rg_rgtc2(TEXSTORE_PARAMS)
           dstFormat == MESA_FORMAT_LA_LATC2_UNORM);
 
    if (baseInternalFormat == GL_RG)
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#ifdef UTIL_ARCH_LITTLE_ENDIAN
       tempFormat = MESA_FORMAT_R8G8_UNORM;
 #else
       tempFormat = MESA_FORMAT_G8R8_UNORM;
 #endif
    else
-#ifdef PIPE_ARCH_LITTLE_ENDIAN
+#ifdef UTIL_ARCH_LITTLE_ENDIAN
       tempFormat = MESA_FORMAT_L8A8_UNORM;
 #else
       tempFormat = MESA_FORMAT_A8L8_UNORM;
