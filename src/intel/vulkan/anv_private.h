@@ -2898,6 +2898,10 @@ struct anv_pipeline {
       uint32_t                                  wm_depth_stencil[4];
    } gen9;
 
+   struct {
+      uint32_t                                  depth_bounds[4];
+   } gen12;
+
    uint32_t                                     interface_descriptor_data[8];
 };
 

@@ -997,6 +997,10 @@ emit_ds_state(struct anv_pipeline *pipeline,
 #  define depth_stencil_dw pipeline->gen9.wm_depth_stencil
 #endif
 
+#if GEN_GEN >= 12
+#  define depth_bounds_dw pipeline->gen12.depth_bounds
+#endif
+
    if (pCreateInfo == NULL) {
       /* We're going to OR this together with the dynamic state.  We need
        * to make sure it's initialized to something useful.
@@ -1006,6 +1010,9 @@ emit_ds_state(struct anv_pipeline *pipeline,
       pipeline->writes_depth = false;
       pipeline->depth_test_enable = false;
       memset(depth_stencil_dw, 0, sizeof(depth_stencil_dw));
+#if GEN_GEN >= 12
+      memset(depth_bounds_dw, 0, sizeof(depth_bounds_dw));
+#endif
       return;
    }
 
@@ -1049,6 +1056,19 @@ emit_ds_state(struct anv_pipeline *pipeline,
    GENX(DEPTH_STENCIL_STATE_pack)(NULL, depth_stencil_dw, &depth_stencil);
 #else
    GENX(3DSTATE_WM_DEPTH_STENCIL_pack)(NULL, depth_stencil_dw, &depth_stencil);
+#endif
+
+#if GEN_GEN >= 12
+   struct GENX(3DSTATE_DEPTH_BOUNDS) depth_bounds = {
+      GENX(3DSTATE_DEPTH_BOUNDS_header),
+      .DepthBoundsTestValueModifyDisable = false,
+      .DepthBoundsTestEnableModifyDisable = false,
+      .DepthBoundsTestEnable = info.depthBoundsTestEnable,
+      .DepthBoundsTestMinValue = info.minDepthBounds,
+      .DepthBoundsTestMaxValue = info.maxDepthBounds,
+   };
+
+   GENX(3DSTATE_DEPTH_BOUNDS_pack)(NULL, depth_bounds_dw, &depth_bounds);
 #endif
 }
 

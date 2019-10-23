@@ -542,6 +542,25 @@ genX(cmd_buffer_flush_dynamic_state)(struct anv_cmd_buffer *cmd_buffer)
    }
 #endif
 
+#if GEN_GEN >= 12
+   if(cmd_buffer->state.gfx.dirty & ANV_CMD_DIRTY_DYNAMIC_DEPTH_BOUNDS) {
+      uint32_t dwords[GENX(3DSTATE_DEPTH_BOUNDS_length)];
+      struct GENX(3DSTATE_DEPTH_BOUNDS) depth_bounds = {
+         GENX(3DSTATE_DEPTH_BOUNDS_header),
+         .DepthBoundsTestValueModifyDisable = false,
+         .DepthBoundsTestEnableModifyDisable = false,
+         .DepthBoundsTestEnable = pipeline->depth_test_enable,
+         .DepthBoundsTestMinValue = d->depth_bounds.min,
+         .DepthBoundsTestMaxValue = d->depth_bounds.max,
+      };
+
+      GENX(3DSTATE_DEPTH_BOUNDS_pack)(NULL, dwords, &depth_bounds);
+
+      anv_batch_emit_merge(&cmd_buffer->batch, dwords,
+                           pipeline->gen12.depth_bounds);
+   }
+#endif
+
    if (cmd_buffer->state.gfx.dirty & ANV_CMD_DIRTY_DYNAMIC_LINE_STIPPLE) {
       anv_batch_emit(&cmd_buffer->batch, GENX(3DSTATE_LINE_STIPPLE), ls) {
          ls.LineStipplePattern = d->line_stipple.pattern;
